@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script
+			defer
+			src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"
+		></script>
+		<title>UA Test</title>
+	</head>
+	<body x-data>
+		<h1 x-text="window.navigator.userAgent"></h1>
+		<h2>
+			Webview:
+			<span x-text="isWebview(window.navigator.userAgent)"></span>
+		</h2>
+
+		<script>
+			const rules = [
+				"WebView",
+				"(iPhone|iPod|iPad)(?!.*Safari)",
+				"Android.*(;\\s+wv|Version/\\d.\\d\\s+Chrome/\\d+(\\.0){3})",
+				"Linux; U; Android",
+			];
+
+			const webviewRegExp = new RegExp("(" + rules.join("|") + ")", "ig");
+
+			function isWebview(ua) {
+				return !!ua.match(webviewRegExp);
+			}
+		</script>
+	</body>
+</html>
